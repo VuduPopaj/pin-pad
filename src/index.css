@@ -1,63 +1,62 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-  font-family: sans-serif;
+  margin: 0;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 16px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  border-radius: 4px;
+p {
+  border: solid black 2px;
+  text-align: center;
+  background: rgb(47, 47, 43);
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 1px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-.row {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  align-items: center;
-  margin-top: 8px;
-  margin-bottom: 8px;
+.container {
+  max-width: 350px;
+  background-color: rgb(47, 47, 43);
+  margin: 50px auto;
+  text-align: center;
+  border: solid 10px;
+  border-color: rgb(47, 47, 43);
+  border-radius: 25px;
 }
 
-input {
-  margin-bottom: 32px;
-  padding: 16px;
+.panel {
+  width: 50%;
+  height: 40px;
+  margin: 12px auto;
+  background-color: gray;
+  border: 2px solid black;
+  font-size: 2em;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 25px;
 }
 
-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-button {
-  height: 64px;
-  width: 64px;
+.button {
   color: black;
-  border: none;
-  border-radius: 50%;
-  margin-left: 8px;
-  margin-right: 8px;
-  cursor: pointer;
-  font-size: 1.3rem;
+  border: 2px;
+  border-radius: 30px;
+  font-size: 1.3em;
+  text-align: center;
+  width: 65px;
+  height: 60px;
+  margin: 7px 20px;
+  padding: 0;
+
+  box-shadow: black 0 0 1px 1px;
 }
 
-/* neuspjela validacija sa bojama */
-
-/* .success {
-  color: #2ecc71;
+.button:hover {
+  box-shadow: blue 0 0 1px 1px;
 }
 
-.error {
-  color: #e74c3c;
-} */
+.button:active {
+  background: green;
+}

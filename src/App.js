@@ -1,55 +1,75 @@
-import { useState } from "react";
-import "./index.css";
+import React, { useState } from "react";
 import Button from "./components/Button";
-import Input from "./components/Input";
-
+import Screen from "./components/Screen";
 function App() {
-  const [inputValue, setInputValue] = useState("");
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [isWrong, setIsWrong] = useState(false);
-
-  // const maxInputs = 3;
-  // const lockedTime = 30000;
 
   const password = "1234";
 
-  const handleButtonClick = (value) => {
-    let newInputValue = inputValue + `${value}`;
-    setInputValue(newInputValue);
-    if (newInputValue.length > 4) {
-      setIsUnlocked(false);
-      setIsWrong(false);
-      setInputValue(`${value}`);
-    } else if (newInputValue.length === 4) {
-      newInputValue === password ? setIsUnlocked(true) : setIsWrong(true);
+  const [count, setCount] = useState(0);
+
+  const [pin, setPin] = useState("");
+
+  const [hidden, setHidden] = useState(true);
+
+  const [disabled, setDisabled] = useState(false);
+  
+  const [numLimit, setNumLimit] = useState(false);
+
+  const addDigit = (digit) => {
+    if (pin.length < 4) {
+      setPin(pin + digit);
+    } else if (pin.length >= 4) {
+      setNumLimit(true);
+    }
+  };
+
+  const clear = () => {
+    setPin("");
+    setHidden(true);
+    setNumLimit(false);
+  };
+
+  const enter = () => {
+    setHidden(false);
+    setNumLimit(false);
+
+    if (pin === password) {
+      setPin("OK");
+    } else {
+      setPin("ERROR");
+      setCount(count + 1);
+      if (count >= 2) {
+        setPin("LOCKED");
+        setDisabled(true);
+        setTimeout(() => {
+          setDisabled(false);
+          setCount(0);
+          setPin("");
+        }, 30000);
+      }
     }
   };
 
   return (
-    <main>
-      <section>
-        <Input value={inputValue} isUnlocked={isUnlocked} isWrong={isWrong} />
+    <div className="container">
+      <Screen text={pin} hidden={hidden} numLimit={numLimit} />
+      <Button key={1} caption="1" action={addDigit} disabled={disabled} />
+      <Button key={2} caption="2" action={addDigit} disabled={disabled} />
+      <Button key={3} caption="3" action={addDigit} disabled={disabled} />
+      <br />
+      <Button key={4} caption="4" action={addDigit} disabled={disabled} />
+      <Button key={5} caption="5" action={addDigit} disabled={disabled} />
+      <Button key={6} caption="6" action={addDigit} disabled={disabled} />
+      <br />
+      <Button key={7} caption="7" action={addDigit} disabled={disabled} />
+      <Button key={8} caption="8" action={addDigit} disabled={disabled} />
 
-        <section className="row">
-          <Button value={3} onClick={handleButtonClick} />
-          <Button value={2} onClick={handleButtonClick} />
-          <Button value={1} onClick={handleButtonClick} />
-        </section>
-        <section className="row">
-          <Button value={6} onClick={handleButtonClick} />
-          <Button value={5} onClick={handleButtonClick} />
-          <Button value={4} onClick={handleButtonClick} />
-        </section>
-        <section className="row">
-          <Button value={9} onClick={handleButtonClick} />
-          <Button value={8} onClick={handleButtonClick} />
-          <Button value={7} onClick={handleButtonClick} />
-        </section>
-        <section className="row">
-          <Button value={0} onClick={handleButtonClick} />
-        </section>
-      </section>
-    </main>
+      <Button key={9} caption="9" action={addDigit} disabled={disabled} />
+      <br />
+      <Button key="c" caption="Clear" action={clear} disabled={disabled} />
+      <Button key={0} caption="0" action={addDigit} disabled={disabled} />
+      <Button key="e" caption="Enter" action={enter} disabled={disabled} />
+    </div>
   );
 }
 
