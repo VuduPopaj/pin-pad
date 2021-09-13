@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Button from "./components/Button";
 import Screen from "./components/Screen";
-function App() {
 
+function App() {
+  
   const password = "1234";
 
   const [count, setCount] = useState(0);
@@ -12,8 +13,11 @@ function App() {
   const [hidden, setHidden] = useState(true);
 
   const [disabled, setDisabled] = useState(false);
-  
+
   const [numLimit, setNumLimit] = useState(false);
+
+  let number = [];
+  number.push(<p key="n">Please enter the 4 digit pin!</p>);
 
   const addDigit = (digit) => {
     if (pin.length < 4) {
@@ -23,21 +27,20 @@ function App() {
     }
   };
 
-  const clear = () => {
+  const clear = (digit) => {
     setPin("");
     setHidden(true);
     setNumLimit(false);
   };
 
   const enter = () => {
-    setHidden(false);
-    setNumLimit(false);
-
     if (pin === password) {
       setPin("OK");
+      setCount(0);
     } else {
       setPin("ERROR");
       setCount(count + 1);
+
       if (count >= 2) {
         setPin("LOCKED");
         setDisabled(true);
@@ -48,11 +51,18 @@ function App() {
         }, 30000);
       }
     }
+
+    setHidden(false);
+    setNumLimit(false);
   };
 
   return (
     <div className="container">
-      <Screen text={pin} hidden={hidden} numLimit={numLimit} />
+      <h1>
+        Pin-Pad
+        <div>{numLimit && number}</div>
+      </h1>
+      <Screen text={pin} hidden={hidden} numLimit={numLimit} key="s" />
       <Button key={1} caption="1" action={addDigit} disabled={disabled} />
       <Button key={2} caption="2" action={addDigit} disabled={disabled} />
       <Button key={3} caption="3" action={addDigit} disabled={disabled} />

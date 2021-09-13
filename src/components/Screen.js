@@ -4,7 +4,7 @@ const Screen = ({ text, hidden }) => {
   return (
     <div>
       <div className="panel">
-        {hidden && Array.from(text).map(() => <span key={i++}>*</span>)}
+        {hidden && Array.from(text).map((c) => <span key={i++}>*</span>)}
         {!hidden && Array.from(text).map((c) => <span key={i++}>{c}</span>)}
       </div>
     </div>
